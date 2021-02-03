@@ -2,6 +2,7 @@ package ca.bc.gov.open.jag.efilingapi.filingpackage.service.filingPackageService
 
 import ca.bc.gov.open.jag.efilingapi.TestHelpers;
 import ca.bc.gov.open.jag.efilingapi.account.service.AccountService;
+import ca.bc.gov.open.jag.efilingapi.api.model.DocumentProperties;
 import ca.bc.gov.open.jag.efilingapi.api.model.FilingPackage;
 import ca.bc.gov.open.jag.efilingapi.api.model.InitialDocument;
 import ca.bc.gov.open.jag.efilingapi.filingpackage.mapper.FilingPackageMapperImpl;
@@ -107,8 +108,8 @@ public class GetCSOFilingPackage {
         Assertions.assertEquals(MIDDLE_NAME, result.get().getParties().get(0).getMiddleName());
         //Document
         Assertions.assertEquals(1, result.get().getDocuments().size());
-        Assertions.assertEquals("AAB", result.get().getDocuments().get(0).getType());
-        Assertions.assertEquals(NAME, result.get().getDocuments().get(0).getName());
+        Assertions.assertEquals(DocumentProperties.TypeEnum.AAB, result.get().getDocuments().get(0).getDocumentProperties().getType());
+        Assertions.assertEquals(NAME, result.get().getDocuments().get(0).getDocumentProperties().getName());
         Assertions.assertEquals(STATUS, result.get().getDocuments().get(0).getStatus().getDescription());
         Assertions.assertEquals(STATUS_CODE, result.get().getDocuments().get(0).getStatus().getCode());
         Assertions.assertNotNull(result.get().getDocuments().get(0).getStatus().getChangeDate());
@@ -207,7 +208,7 @@ public class GetCSOFilingPackage {
 
         ReviewDocument reviewDocument = new ReviewDocument();
         reviewDocument.setFileName(NAME);
-        reviewDocument.setDocumentTypeCd(InitialDocument.TypeEnum.AAB.getValue());
+        reviewDocument.setDocumentTypeCd(DocumentProperties.TypeEnum.AAB.getValue());
         reviewDocument.setStatus(STATUS);
         reviewDocument.setStatusCode(STATUS_CODE);
         reviewDocument.setStatusDate(DateTime.parse("2020-05-05T00:00:00.000-07:00"));
