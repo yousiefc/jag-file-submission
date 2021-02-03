@@ -266,7 +266,7 @@ public class TestHelpers {
         ReviewDocument reviewDocumentOne = new ReviewDocument();
         reviewDocumentOne.setDocumentId(DOCUMENT_ID_ONE);
         reviewDocumentOne.setFileName(NAME);
-        reviewDocumentOne.setDocumentTypeCd(InitialDocument.TypeEnum.AAB.getValue());
+        reviewDocumentOne.setDocumentTypeCd(DocumentProperties.TypeEnum.AAB.getValue());
         reviewDocumentOne.setStatus(STATUS);
         reviewDocumentOne.setStatusCode(STATUS_CODE);
         reviewDocumentOne.setStatusDate(DateTime.parse("2020-05-05T00:00:00.000-07:00"));
@@ -275,7 +275,7 @@ public class TestHelpers {
         ReviewDocument reviewDocumentTwo = new ReviewDocument();
         reviewDocumentTwo.setDocumentId(DOCUMENT_ID_TWO);
         reviewDocumentTwo.setFileName(NAME);
-        reviewDocumentTwo.setDocumentTypeCd(InitialDocument.TypeEnum.AAB.getValue());
+        reviewDocumentTwo.setDocumentTypeCd(DocumentProperties.TypeEnum.AAB.getValue());
         reviewDocumentTwo.setStatus(STATUS);
         reviewDocumentTwo.setStatusCode(STATUS_CODE);
         reviewDocumentTwo.setStatusDate(DateTime.parse("2020-05-05T00:00:00.000-07:00"));
