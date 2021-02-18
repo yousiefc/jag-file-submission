@@ -8,11 +8,14 @@ import ca.bc.gov.open.jag.efiling.services.GenerateUrlService;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AuthenticateAndRedirectToEfilingHubSD {
 
@@ -23,11 +26,13 @@ public class AuthenticateAndRedirectToEfilingHubSD {
     private static final String EFILE_SUBMISSION_PAGE_TITLE = "E-File submission";
     private static final String INITIAL_DOCUMENT_NAME = "test-document.pdf";
 
+    @Value("${test:bceid}")
+    private String provider;
 
     Logger log = LogManager.getLogger(AuthenticateAndRedirectToEfilingHubSD.class);
 
-    public AuthenticateAndRedirectToEfilingHubSD(AuthenticationPage authenticationPage, PackageConfirmationPage packageConfirmationPage, GenerateUrlService generateUrlService) {
-        this.authenticationPage = authenticationPage;
+    public AuthenticateAndRedirectToEfilingHubSD(List<AuthenticationPage> authenticationPages, PackageConfirmationPage packageConfirmationPage, GenerateUrlService generateUrlService) {
+        this.authenticationPage = authenticationPages.stream().filter(x -> StringUtils.equals(provider, x.name())).findFirst().get();
         this.packageConfirmationPage = packageConfirmationPage;
         this.generateUrlService = generateUrlService;
     }
@@ -40,7 +45,7 @@ public class AuthenticateAndRedirectToEfilingHubSD {
         if(actualGeneratedRedirectUrl == null) throw new EfilingTestException("Redirect url is not generated.");
 
         this.authenticationPage.goTo(actualGeneratedRedirectUrl);
-        this.authenticationPage.signInWithBceid();
+        this.authenticationPage.signIn();
         log.info("user is authenticated with keycloak");
     }
 

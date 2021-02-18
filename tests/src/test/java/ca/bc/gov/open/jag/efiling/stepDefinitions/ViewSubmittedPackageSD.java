@@ -1,6 +1,6 @@
 package ca.bc.gov.open.jag.efiling.stepDefinitions;
 
-import ca.bc.gov.open.jag.efiling.page.AuthenticationPage;
+import ca.bc.gov.open.jag.efiling.page.KeycloakAuthenticationPageImpl;
 import ca.bc.gov.open.jag.efiling.page.PackageReviewPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -19,12 +19,12 @@ public class ViewSubmittedPackageSD {
     @Value("${PACKAGE_REVIEW_URL:http://localhost:3000/efilinghub/packagereview}")
     private String packageReviewUrl;
 
-    private final AuthenticationPage authenticationPage;
+    private final KeycloakAuthenticationPageImpl authenticationPage;
     private final PackageReviewPage packageReviewPage;
 
     private Logger logger = LoggerFactory.getLogger(ViewSubmittedPackageSD.class);
 
-    public ViewSubmittedPackageSD(AuthenticationPage authenticationPage, PackageReviewPage packageReviewPage) {
+    public ViewSubmittedPackageSD(KeycloakAuthenticationPageImpl authenticationPage, PackageReviewPage packageReviewPage) {
         this.authenticationPage = authenticationPage;
         this.packageReviewPage = packageReviewPage;
     }
@@ -36,7 +36,7 @@ public class ViewSubmittedPackageSD {
         logger.info("Formatted package review page url:{}", packageReviewPageUrl);
 
         this.packageReviewPage.goTo(packageReviewPageUrl);
-        this.authenticationPage.signInWithBceid();
+        this.authenticationPage.signIn();
 
     }
 

@@ -1,10 +1,7 @@
 package ca.bc.gov.open.jag.efiling;
 
 import ca.bc.gov.open.jag.efiling.config.BrowserScopePostProcessor;
-import ca.bc.gov.open.jag.efiling.page.AuthenticationPage;
-import ca.bc.gov.open.jag.efiling.page.DocumentUploadPage;
-import ca.bc.gov.open.jag.efiling.page.PackageConfirmationPage;
-import ca.bc.gov.open.jag.efiling.page.PackageReviewPage;
+import ca.bc.gov.open.jag.efiling.page.*;
 import ca.bc.gov.open.jag.efiling.services.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -73,8 +70,14 @@ public class TestConfig {
 
     @Bean
     @Scope("prototype")
-    public AuthenticationPage authenticationPage() {
-        return new AuthenticationPage();
+    public AuthenticationPage keycloackAuthenticationPage() {
+        return new KeycloakAuthenticationPageImpl();
+    }
+
+    @Bean
+    @Scope("prototype")
+    public AuthenticationPage bceidAuthenticationPage() {
+        return new BceidAuthenticationImpl();
     }
 
     @Bean
